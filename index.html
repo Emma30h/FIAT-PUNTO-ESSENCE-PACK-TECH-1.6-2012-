@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Fiat Punto Essence Pack Tech 1.6 16V 2012 en venta en Córdoba Capital. Recorrelo por dentro y por fuera.">
+<meta property="og:title" content="Fiat Punto Essence 1.6 16V · 2012">
+<meta property="og:description" content="163.400 km · GNC · doble techo solar · Córdoba Capital">
+<meta property="og:image" content="img/tres-cuartos.jpg">
+<title>Fiat Punto 360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@600;800&family=Saira:wght@400;500;600;700&display=swap">
+<style>
+/* Showroom nocturno: escenario oscuro, auto al centro, luz ámbar de tablero para todo lo que se toca */
+:root{
+  --bg:#0F1216; --panel:#171B21; --line:#2A3038; --text:#EEF1F4; --muted:#A7AFB9; --accent:#F2A93B; --accent-ink:#1A1206;
+  --display:'Saira Extra Condensed','Arial Narrow',sans-serif;
+  --body:'Saira',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:28px 48px;display:flex;flex-direction:column;gap:22px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px}
+.eyebrow{font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(56px,11vw,112px);line-height:.85;margin:6px 0 0;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.sub{font-size:clamp(17px,2.4vw,22px);font-weight:500;color:var(--muted);margin-top:8px}
+.odo{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.odo b{font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,64px);line-height:.9;font-variant-numeric:tabular-nums}
+.odo span{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+.modes{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px;align-self:flex-start;flex-wrap:wrap}
+.modes button{border:0;background:transparent;padding:10px 20px;border-radius:999px;font-weight:600;font-size:16px;cursor:pointer;min-height:44px}
+.modes button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+
+.stage{position:relative;height:clamp(380px,64vh,640px);border-radius:14px;overflow:hidden;background:#06080A;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.stage.dragging{cursor:grabbing}
+.stage .backdrop{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(28px) brightness(.45) saturate(1.1);transition:background-image .3s}
+.frame{position:absolute;transition:opacity .28s ease}
+.frame img{width:100%;height:100%;display:block;pointer-events:none;border-radius:4px}
+.hs{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:0;background:transparent;cursor:pointer;padding:0}
+.hs::before{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(242,169,59,.35),0 2px 10px rgba(0,0,0,.6)}
+.hs::after{content:"";position:absolute;inset:4px;border-radius:50%;border:2px solid var(--accent);opacity:0;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+.hs .tip{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);white-space:nowrap;background:var(--bg);border:1px solid var(--line);padding:4px 10px;border-radius:6px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .15s}
+.hs:hover .tip,.hs:focus-visible .tip{opacity:1}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(15,18,22,.7);cursor:pointer;display:grid;place-items:center;z-index:2}
+.nav:hover{border-color:var(--accent)}
+.nav.prev{left:14px}.nav.next{right:14px}
+.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(15,18,22,.78);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px;font-weight:500;z-index:2;white-space:nowrap;transition:opacity .4s}
+.hint.gone{opacity:0}
+.badge{position:absolute;left:14px;top:14px;z-index:2;background:rgba(15,18,22,.78);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-weight:600;font-size:15px}
+.badge small{color:var(--muted);font-weight:500;margin-left:6px;font-variant-numeric:tabular-nums}
+
+.dial{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.dial button{flex:0 0 auto;width:104px;border:2px solid transparent;border-radius:10px;background:var(--panel);padding:0;cursor:pointer;overflow:hidden;text-align:left}
+.dial button img{width:100%;height:72px;object-fit:cover;display:block}
+.dial button span{display:block;padding:6px 8px;font-size:13px;font-weight:600;color:var(--muted)}
+.dial button[aria-current="true"]{border-color:var(--accent)}
+.dial button[aria-current="true"] span{color:var(--text)}
+
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.specs div{background:var(--panel);padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.specs dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.specs dd{margin:0;font-family:var(--display);font-weight:600;font-size:28px;line-height:1.1}
+
+.contact{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px;background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:22px 24px}
+.contact p{margin:0;font-weight:600;font-size:17px}
+.contact .num{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,60px);line-height:1;user-select:all}
+.contact .acts{display:flex;gap:10px;flex-wrap:wrap}
+.contact a,.contact button{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer}
+.contact a{background:var(--accent-ink);color:var(--accent)}
+.contact button{background:transparent;border:2px solid var(--accent-ink);color:var(--accent-ink)}
+
+.sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);padding:16px}
+.sheet .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:92%;overflow:auto;animation:up .22s ease}
+@keyframes up{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.sheet img{width:100%;max-height:52vh;object-fit:cover;display:block}
+.sheet .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.sheet h2{font-family:var(--display);font-weight:800;font-size:38px;line-height:1;margin:0;text-transform:uppercase}
+.sheet p{margin:0;color:var(--muted);font-size:17px}
+.sheet .close{align-self:flex-start;margin-top:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:transparent;font-weight:600;cursor:pointer}
+@media (min-width:760px){.sheet{align-items:center}}
+
+/* Estructura: una columna en celular y tablet; visor + panel lateral en pantallas grandes */
+.wrap{max-width:1320px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.viewer,.side{display:flex;flex-direction:column;gap:16px;min-width:0}
+.specs dd{overflow-wrap:anywhere}
+@media (min-width:1080px){
+  .layout{grid-template-columns:minmax(0,1fr) 340px;align-items:start}
+  .side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+  .specs{grid-template-columns:1fr 1fr}
+  .stage{height:clamp(460px,70vh,720px)}
+  .contact{flex-direction:column;align-items:stretch}
+  .contact .num{font-size:52px}
+  .contact .acts{flex-direction:column}
+  .contact a,.contact button{justify-content:center}
+}
+/* Tablet */
+@media (min-width:640px) and (max-width:1079px){
+  .specs{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+/* Celular */
+@media (max-width:639px){
+  .wrap{padding-inline:16px;padding-block:18px 32px;gap:18px}
+  header{flex-direction:column;align-items:flex-start;gap:10px}
+  .odo{flex-direction:row;align-items:baseline;gap:10px}
+  .modes{align-self:stretch}
+  .modes button{flex:1;padding:10px 8px}
+  .stage{height:min(74vh,600px);border-radius:10px;margin-inline:-16px;border-radius:0}
+  .nav{width:44px;height:44px}
+  .nav.prev{left:8px}.nav.next{right:8px}
+  .hint{font-size:13px;padding:6px 12px;bottom:10px;gap:6px}
+  .badge{font-size:14px;left:8px;top:8px}
+  .dial button{width:84px}
+  .dial button img{height:58px}
+  .dial button span{font-size:12px;padding:5px 6px}
+  .specs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .specs div{padding:12px 14px}
+  .specs dd{font-size:23px}
+  .contact{padding:20px 18px}
+  .contact .acts{width:100%}
+  .contact a,.contact button{flex:1 1 140px;justify-content:center}
+  .sheet{padding:0}
+  .sheet .card{border-radius:16px 16px 0 0;max-height:88%;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .sheet h2{font-size:32px}
+}
+/* Celular acostado */
+@media (max-height:500px) and (orientation:landscape){
+  .stage{height:86vh}
+  h1{font-size:52px}
+}
+@media (prefers-reduced-motion:reduce){.hs::after,.sheet .card{animation:none}.frame{transition:none}}
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">En venta · Córdoba Capital</div>
+      <h1>Fiat Punto</h1>
+      <div class="sub">Essence Pack Tech · 1.6 16V · 2012 · Nafta + GNC</div>
+    </div>
+    <div class="odo"><b>163.400</b><span>kilómetros</span></div>
+  </header>
+
+  <div class="layout">
+  <div class="viewer">
+  <div class="modes" role="group" aria-label="Qué querés ver">
+    <button id="m-ext" data-mode="ext" aria-pressed="true">Exterior</button>
+    <button id="m-int" data-mode="int" aria-pressed="false">Interior</button>
+    <button id="m-det" data-mode="det" aria-pressed="false">Detalles</button>
+  </div>
+
+  <div class="stage" id="stage" tabindex="0" aria-label="Visor del auto. Usá las flechas del teclado para girar.">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="frame" id="frame"><img id="photo" alt=""><div id="spots"></div></div>
+    <div class="badge" id="badge"></div>
+    <button class="nav prev" id="prev" aria-label="Vista anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="nav next" id="next" aria-label="Vista siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="hint" id="hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg>Arrastrá para girar · tocá los puntos</div>
+  </div>
+
+  <div class="dial" id="dial" aria-label="Ángulos"></div>
+  </div>
+
+  <aside class="side">
+  <dl class="specs">
+    <div><dt>Kilómetros</dt><dd>163.400</dd></div>
+    <div><dt>Motor</dt><dd>1.6 16V a cadena</dd></div>
+    <div><dt>Combustible</dt><dd>Nafta + GNC</dd></div>
+    <div><dt>Techo</dt><dd>Doble solar</dd></div>
+    <div><dt>Confort</dt><dd>Aire · vidrios eléctricos</dd></div>
+    <div><dt>Auxilio</dt><dd>Nuevo, sin uso</dd></div>
+  </dl>
+
+  <section class="contact" aria-label="Contacto">
+    <div>
+      <p>¿Te interesa? Consultá por WhatsApp</p>
+      <div class="num" id="num">354 246 1432</div>
+    </div>
+    <div class="acts">
+      <a href="https://wa.me/5493542461432" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      <button id="copy" type="button">Copiar número</button>
+    </div>
+  </section>
+  </aside>
+  </div>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+    <img id="sh-img" alt="">
+    <div class="body">
+      <h2 id="sh-t"></h2>
+      <p id="sh-d"></p>
+      <button class="close" id="sh-close" type="button">Volver al auto</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const D = {
+  motor:{t:'Motor 1.6 16V',d:'Distribución a cadena: no hay correa que cambiar cada tantos kilómetros. Funciona a nafta y GNC.',img:'img/motor.jpg'},
+  techo:{t:'Doble techo solar',d:'Dos paneles de vidrio sobre las dos filas de asientos. El delantero se abre.',img:'img/habitaculo.jpg'},
+  llantas:{t:'Llantas de aleación',d:'Llantas originales Fiat con tazas al centro.',img:'img/tres-cuartos.jpg'},
+  gnc:{t:'Equipo de GNC',d:'Tubo marca Nova en el baúl. Prueba hidráulica realizada en 2026.',img:'img/gnc.jpg'},
+  auxilio:{t:'Auxilio sin uso',d:'Cubierta 185/60 R15 nueva, sin pisar, con su llanta.',img:'img/auxilio.jpg'},
+  km:{t:'163.400 km',d:'Kilometraje real, tal como lo marca el tablero.',img:'img/puesto-manejo.jpg'},
+  caja:{t:'Caja manual',d:'Butacas delanteras y consola central.',img:'img/butacas.jpg'},
+  aire:{t:'Aire acondicionado',d:'Controles en la consola central, junto al estéreo.',img:'img/habitaculo.jpg'},
+  traseros:{t:'Asiento trasero',d:'Tres apoyacabezas y tres cinturones.',img:'img/asiento-trasero.jpg'}
+};
+const MODES = {
+  ext:[
+    {src:'img/frente.jpg',w:1053,h:1400,label:'Frente',hs:[[50,62,'motor'],[50,32,'techo']]},
+    {src:'img/tres-cuartos.jpg',w:1053,h:1400,label:'Tres cuartos',hs:[[38,41,'techo'],[41,78,'llantas']]},
+    {src:'img/vista-alta.jpg',w:1400,h:1054,label:'Desde arriba',hs:[[40,21,'techo'],[64,76,'llantas']]},
+    {src:'img/trasera.jpg',w:1053,h:1400,label:'Trasera',hs:[[42,58,'gnc'],[60,73,'auxilio'],[75,62,'motor']]},
+    {src:'img/perfil.jpg',w:1053,h:1400,label:'Perfil',hs:[[20,63,'llantas'],[50,43,'techo']]},
+    {src:'img/tres-cuartos-izq.jpg',w:1053,h:1400,label:'Tres cuartos izq.',hs:[[40,71,'llantas']]}
+  ],
+  int:[
+    {src:'img/puesto-manejo.jpg',w:1050,h:1400,label:'Puesto de manejo',hs:[[49,60,'km']]},
+    {src:'img/butacas.jpg',w:1053,h:1400,label:'Butacas',hs:[[53,31,'caja']]},
+    {src:'img/habitaculo.jpg',w:1400,h:1050,label:'Habitáculo',hs:[[50,9,'techo'],[52,56,'aire']]},
+    {src:'img/asiento-trasero.jpg',w:1400,h:1050,label:'Atrás',hs:[[50,9,'techo'],[50,49,'traseros']]},
+    {src:'img/trasero-lateral.jpg',w:1053,h:1400,label:'Atrás, de costado',hs:[]}
+  ],
+  det:[
+    {src:'img/motor.jpg',w:1400,h:1054,label:'Motor',hs:[[50,45,'motor']]},
+    {src:'img/gnc.jpg',w:1400,h:1054,label:'GNC',hs:[[50,30,'gnc']]},
+    {src:'img/auxilio.jpg',w:1400,h:1054,label:'Auxilio',hs:[[50,50,'auxilio']]}
+  ]
+};
+const NAMES={ext:'Exterior',int:'Interior',det:'Detalles'};
+let mode='ext', idx=0;
+const $=id=>document.getElementById(id);
+const stage=$('stage'), frame=$('frame'), photo=$('photo'), spots=$('spots');
+
+Object.values(MODES).flat().forEach(v=>{const i=new Image();i.src=v.src});
+
+function fit(){
+  const v=MODES[mode][idx], W=stage.clientWidth, H=stage.clientHeight, pad=16;
+  const s=Math.min((W-pad*2)/v.w,(H-pad*2)/v.h);
+  const w=v.w*s, h=v.h*s;
+  Object.assign(frame.style,{width:w+'px',height:h+'px',left:(W-w)/2+'px',top:(H-h)/2+'px'});
+}
+function render(){
+  const list=MODES[mode], v=list[idx];
+  frame.style.opacity=0;
+  setTimeout(()=>{
+    photo.src=v.src; photo.alt=v.label;
+    $('backdrop').style.backgroundImage='url('+v.src+')';
+    spots.innerHTML='';
+    v.hs.forEach(([x,y,k])=>{
+      const b=document.createElement('button');
+      b.className='hs';b.type='button';b.style.left=x+'%';b.style.top=y+'%';
+      b.setAttribute('aria-label',D[k].t);
+      const t=document.createElement('span');t.className='tip';t.textContent=D[k].t;b.appendChild(t);
+      b.addEventListener('click',e=>{e.stopPropagation();open(k,b)});
+      b.addEventListener('pointerdown',e=>e.stopPropagation());
+      spots.appendChild(b);
+    });
+    fit(); frame.style.opacity=1;
+  },120);
+  $('badge').innerHTML='';
+  $('badge').append(v.label);
+  const sm=document.createElement('small');sm.textContent=(idx+1)+' de '+list.length;$('badge').appendChild(sm);
+  [...$('dial').children].forEach((b,i)=>b.setAttribute('aria-current',i===idx));
+}
+function buildDial(){
+  const dial=$('dial');dial.innerHTML='';
+  MODES[mode].forEach((v,i)=>{
+    const b=document.createElement('button');b.type='button';
+    const im=document.createElement('img');im.src=v.src;im.alt='';
+    const sp=document.createElement('span');sp.textContent=v.label;
+    b.append(im,sp);b.addEventListener('click',()=>{idx=i;render()});
+    dial.appendChild(b);
+  });
+}
+function step(d){const n=MODES[mode].length;idx=(idx+d+n)%n;render();hideHint()}
+function setMode(m){
+  mode=m;idx=0;
+  document.querySelectorAll('.modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));
+  $('hint').lastChild.textContent= m==='ext'?'Arrastrá para girar · tocá los puntos':'Arrastrá para recorrer · tocá los puntos';
+  buildDial();render();
+}
+let hintT;function hideHint(){$('hint').classList.add('gone')}
+
+let startX=null, acc=0, moved=false;
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('.nav'))return;startX=e.clientX;acc=0;moved=false;stage.classList.add('dragging');stage.setPointerCapture(e.pointerId)});
+stage.addEventListener('pointermove',e=>{
+  if(startX===null)return;
+  acc+=e.clientX-startX;startX=e.clientX;
+  const th=Math.max(60,stage.clientWidth/8);
+  if(Math.abs(acc)>th){step(acc<0?1:-1);acc=0;moved=true}
+});
+const end=()=>{startX=null;stage.classList.remove('dragging')};
+stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+stage.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){step(1);e.preventDefault()}if(e.key==='ArrowLeft'){step(-1);e.preventDefault()}});
+$('prev').addEventListener('click',()=>step(-1));
+$('next').addEventListener('click',()=>step(1));
+document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+window.addEventListener('resize',fit);
+if(window.ResizeObserver)new ResizeObserver(fit).observe(stage);
+
+let lastFocus=null;
+function open(k,from){
+  lastFocus=from;const d=D[k];
+  $('sh-img').src=d.img;$('sh-img').alt=d.t;$('sh-t').textContent=d.t;$('sh-d').textContent=d.d;
+  $('sheet').hidden=false;$('sh-close').focus();hideHint();
+}
+function close(){$('sheet').hidden=true;if(lastFocus)lastFocus.focus()}
+$('sh-close').addEventListener('click',close);
+$('sheet').addEventListener('click',e=>{if(e.target.id==='sheet')close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('sheet').hidden)close()});
+
+$('copy').addEventListener('click',async()=>{
+  const b=$('copy');
+  try{await navigator.clipboard.writeText('3542461432');b.textContent='Número copiado'}
+  catch(_){const r=document.createRange();r.selectNodeContents($('num'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Seleccionado: copialo'}
+  setTimeout(()=>b.textContent='Copiar número',2500);
+});
+
+buildDial();render();
+</script>
+
+</body>
+</html>
