@@ -10,7 +10,7 @@ El comprador puede:
 - **Minimapa:** el auto visto desde arriba muestra dónde está la cámara y hacia dónde mira en cada foto; cada punto lleva a esa vista.
 - **Zoom y pantalla completa:** doble clic o doble toque para acercar, arrastrar para mirar de cerca.
 - **Puntos interactivos:** tocar los puntos ámbar para ver el detalle real (kilometraje, techo solar, GNC, llantas, etc.).
-- **Galería, ficha técnica y equipamiento** debajo del recorrido.
+- **Ficha técnica y equipamiento** debajo del recorrido: tarjetas con foto que abren el detalle de cada cosa.
 - **Contacto:** WhatsApp con mensaje precargado; en el celular hay una barra fija para consultar.
 - **Vista previa al compartir:** al pegar el link en WhatsApp o redes aparece la foto del auto con título.
 
