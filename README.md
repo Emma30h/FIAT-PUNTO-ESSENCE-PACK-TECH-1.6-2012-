@@ -7,8 +7,12 @@ El comprador puede:
 - **Exterior:** arrastrar la foto para rodear el auto por 6 ángulos.
 - **Interior:** recorrer puesto de manejo, butacas, habitáculo y asiento trasero.
 - **Detalles:** ver motor, equipo de GNC y auxilio.
+- **Minimapa:** el auto visto desde arriba muestra dónde está la cámara y hacia dónde mira en cada foto; cada punto lleva a esa vista.
+- **Zoom y pantalla completa:** doble clic o doble toque para acercar, arrastrar para mirar de cerca.
 - **Puntos interactivos:** tocar los puntos ámbar para ver el detalle real (kilometraje, techo solar, GNC, llantas, etc.).
-- **Contacto:** escribir por WhatsApp desde la misma página.
+- **Galería, ficha técnica y equipamiento** debajo del recorrido.
+- **Contacto:** WhatsApp con mensaje precargado; en el celular hay una barra fija para consultar.
+- **Vista previa al compartir:** al pegar el link en WhatsApp o redes aparece la foto del auto con título.
 
 Es HTML, CSS y JavaScript puro, sin dependencias ni paso de compilación. Funciona en celular, tablet y computadora.
 
@@ -32,6 +36,6 @@ Abrí `index.html` en el navegador.
 
 ## Cambiar fotos o textos
 
-- Las fotos se definen en el objeto `MODES` dentro del `<script>` de `index.html`. Cada vista tiene su imagen, su tamaño y sus puntos (`hs`: posición x/y en % y la clave del detalle).
+- Las fotos se definen en la lista `V` dentro del `<script>` de `index.html`. Cada vista tiene su imagen, su tamaño, su posición en el minimapa (`p`) y sus puntos (`hs`: posición x/y en % y la clave del detalle).
 - Los textos de cada punto están en el objeto `D`.
 - El número de WhatsApp aparece en la sección de contacto y en el botón "Copiar número".
